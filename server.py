@@ -138,10 +138,6 @@ def remove_client(client, room=None):
         rooms[room].remove(client)
         broadcast(f"\n{color}{username}{RESET_COLOR} saiu da sala.", room, client)
 
-        # Se a sala estiver vazia, remove-a
-        if not rooms[room]:
-            del rooms[room]
-
     # Remove o cliente da lista global
     if client in clients:
         del clients[client]
