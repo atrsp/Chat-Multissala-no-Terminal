@@ -29,11 +29,11 @@ Este projeto implementa um sistema de chat multissala baseado em sockets, permit
    ```
 3. **Execute o servidor:**
    ```bash
-   python server.py
+   python3 server.py
    ```
 4. **Execute o cliente (em outra janela do terminal):**
    ```bash
-   python client.py
+   python3 client.py
    ```
 
 ## Como Testar
