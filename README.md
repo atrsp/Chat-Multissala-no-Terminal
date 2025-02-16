@@ -51,8 +51,7 @@ Este projeto implementa um sistema de chat multissala baseado em sockets, permit
 
 ## Possíveis Melhorias Futuras
 - Implementar uma interface gráfica para melhor experiência do usuário.
-- Adicionar criptografia para proteger as mensagens enviadas.
+- Melhorar o rodízio de cores, par que cada sala tenha o seu próprio.
 - Suporte a salas privadas com senhas.
-- Integração com banco de dados para salvar histórico de chats.
 - Remoção de salas vazias.
 
