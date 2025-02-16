@@ -29,18 +29,17 @@ Este projeto implementa um sistema de chat multissala baseado em sockets, permit
    ```
 3. **Execute o servidor:**
    ```bash
-   python servidor.py
+   python server.py
    ```
 4. **Execute o cliente (em outra janela do terminal):**
    ```bash
-   python cliente.py
+   python client.py
    ```
 
 ## Como Testar
 1. Inicie o servidor.
 2. Abra múltiplos terminais e execute várias instâncias do cliente.
 3. Experimente criar salas, enviar mensagens e testar os comandos `/sair` e `/encerrar`.
-4. Verifique se as salas vazias são removidas automaticamente.
 
 ## Funcionalidades Implementadas
 - Criar e entrar em salas de chat dinâmicas.
@@ -55,6 +54,6 @@ Este projeto implementa um sistema de chat multissala baseado em sockets, permit
 - Implementar uma interface gráfica para melhor experiência do usuário.
 - Adicionar criptografia para proteger as mensagens enviadas.
 - Suporte a salas privadas com senhas.
-- Registro de mensagens no servidor para auditoria.
 - Integração com banco de dados para salvar histórico de chats.
+- Remoção de salas vazias.
 
