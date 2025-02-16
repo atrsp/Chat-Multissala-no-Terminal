@@ -4,7 +4,7 @@
 Este projeto implementa um sistema de chat multissala baseado em sockets, permitindo a criação e participação em salas de conversa. O objetivo é fornecer um ambiente dinâmico onde os usuários podem se conectar, enviar mensagens em tempo real e gerenciar salas de chat. 
 
 ### Desafios abordados:
-- Gerenciamento dinâmico de salas, incluindo remoção automática de salas vazias.
+- Gerenciamento dinâmico de salas.
 - Diferenciação entre criadores de salas e participantes comuns.
 - Implementação de comandos para interação, como sair de salas e encerrar conexões.
 - Interface de linha de comando intuitiva para o usuário.
@@ -44,7 +44,6 @@ Este projeto implementa um sistema de chat multissala baseado em sockets, permit
 ## Funcionalidades Implementadas
 - Criar e entrar em salas de chat dinâmicas.
 - Mensagens em tempo real entre participantes da mesma sala.
-- Remoção automática de salas vazias ao sair o último participante.
 - Diferenciação entre criador e participantes da sala.
 - Comando `/sair` para retornar à seleção de salas.
 - Comando `/encerrar` para desconectar o cliente.
