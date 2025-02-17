@@ -39,7 +39,7 @@ O projeto aborda desafios relacionados à comunicação em redes, manipulação 
 1. Inicie o servidor.
 2. Abra múltiplos terminais e execute o cliente em cada um deles.
 3. Experimente entrar em diferentes salas digitando o nome da sala ao conectar.
-4. Teste os comandos implementados, como:
+4. Teste os comandos implementados para os clientes, como:
    - `/sair` - Sai da sala atual.
    - `/encerrar` - Fecha a conexão do cliente.
    - `/quem` - Lista os usuários na sala.
@@ -52,14 +52,12 @@ O projeto aborda desafios relacionados à comunicação em redes, manipulação 
 - Permissão para definir senha ao criar uma sala.
 - Listagem de salas e usuários conectados.
 - Mensagens públicas e privadas entre usuários.
-- Comandos de gerenciamento de conexões.
 - Fechamento automático de salas vazias.
-- Encerramento do servidor com comando `/shutdown`.
+- Encerramento do servidor com comando `/shutdown` (no terminal do servidor).
 
 ## Possíveis Melhorias Futuras
 - Implementar interface gráfica para facilitar a interação.
-- Adicionar suporte a logs persistentes em arquivo.
 - Melhorar a segurança, incluindo criptografia nas mensagens.
-- Criar um sistema de autenticação de usuários.
+- Criar um sistema de autenticação de usuários, verificando nomes repetidos.
 - Implementar suporte para histórico de conversa.
 
