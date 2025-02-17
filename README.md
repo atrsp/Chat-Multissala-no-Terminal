@@ -1,57 +1,65 @@
 # Chat Multissala
 
 ## Descrição
-Este projeto implementa um sistema de chat multissala baseado em sockets, permitindo a criação e participação em salas de conversa. O objetivo é fornecer um ambiente dinâmico onde os usuários podem se conectar, enviar mensagens em tempo real e gerenciar salas de chat. 
+Este é um projeto de um servidor de chat multissala desenvolvido em Python, permitindo que os usuários se conectem a diferentes salas de conversa simultaneamente. O sistema suporta funcionalidades como mensagens privadas, listagem de salas, gerenciamento de conexões e permissões de criador da sala.
 
-### Desafios abordados:
-- Gerenciamento dinâmico de salas.
-- Diferenciação entre criadores de salas e participantes comuns.
-- Implementação de comandos para interação, como sair de salas e encerrar conexões.
-- Interface de linha de comando intuitiva para o usuário.
+O projeto aborda desafios relacionados à comunicação em redes, manipulação de múltiplas conexões via threads e gerenciamento de salas de bate-papo dinâmicas.
 
 ## Tecnologias Utilizadas
-- **Linguagem:** Python
-- **Bibliotecas:** `socket`, `threading`, `os`, `sys`
+- **Linguagem:** Python 3
+- **Bibliotecas:**
+  - `socket` - Para a comunicação entre cliente e servidor.
+  - `threading` - Para manipulação de múltiplas conexões simultâneas.
+  - `os` - Para interação com o sistema operacional, como limpeza da tela.
 
 ## Como Executar
 
 ### Requisitos
-- Python 3.x instalado
+- Python 3 instalado.
 
 ### Instruções de Execução
+
 1. **Clone o repositório:**
-   ```bash
+   ```sh
    git clone <URL_DO_REPOSITORIO>
+   cd <NOME_DO_DIRETORIO>
    ```
-2. **Acesse a pasta do projeto:**
-   ```bash
-   cd <PASTA_DO_PROJETO>
-   ```
-3. **Execute o servidor:**
-   ```bash
+
+2. **Inicie o servidor:**
+   ```sh
    python3 server.py
    ```
-4. **Execute o cliente (em outra janela do terminal):**
-   ```bash
+
+3. **Execute o cliente:**
+   ```sh
    python3 client.py
    ```
 
 ## Como Testar
 1. Inicie o servidor.
-2. Abra múltiplos terminais e execute várias instâncias do cliente.
-3. Experimente criar salas, enviar mensagens e testar os comandos `/sair` e `/encerrar`.
+2. Abra múltiplos terminais e execute o cliente em cada um deles.
+3. Experimente entrar em diferentes salas digitando o nome da sala ao conectar.
+4. Teste os comandos implementados, como:
+   - `/sair` - Sai da sala atual.
+   - `/encerrar` - Fecha a conexão do cliente.
+   - `/quem` - Lista os usuários na sala.
+   - `@usuário mensagem` - Envia uma mensagem privada.
+5. Verifique a funcionalidade de criador da sala e exclusão de salas vazias.
 
 ## Funcionalidades Implementadas
-- Criar e entrar em salas de chat dinâmicas.
-- Mensagens em tempo real entre participantes da mesma sala.
-- Diferenciação entre criador e participantes da sala.
-- Comando `/sair` para retornar à seleção de salas.
-- Comando `/encerrar` para desconectar o cliente.
-- Comando do servidor `/shutdown` para encerrar todas as conexões.
+- Conexão de múltiplos clientes a um servidor de chat.
+- Criação de salas de bate-papo dinâmicas.
+- Permissão para definir senha ao criar uma sala.
+- Listagem de salas e usuários conectados.
+- Mensagens públicas e privadas entre usuários.
+- Comandos de gerenciamento de conexões.
+- Fechamento automático de salas vazias.
+- Encerramento do servidor com comando `/shutdown`.
 
 ## Possíveis Melhorias Futuras
-- Implementar uma interface gráfica para melhor experiência do usuário.
-- Melhorar o rodízio de cores, par que cada sala tenha o seu próprio.
-- Suporte a salas privadas com senhas.
-- Remoção de salas vazias.
+- Implementar interface gráfica para facilitar a interação.
+- Adicionar suporte a logs persistentes em arquivo.
+- Melhorar a segurança, incluindo criptografia nas mensagens.
+- Criar um sistema de autenticação de usuários.
+- Implementar suporte para histórico de conversa.
 
