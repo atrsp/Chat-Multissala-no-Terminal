@@ -3,7 +3,7 @@ import socket
 import os
 
 # Configuração do cliente
-port = 7777  # Porta do servidor
+port = 7778  # Porta do servidor
 IP = "localhost"  # Endereço IP do servidor
 
 # Função para limpar a tela do terminal
