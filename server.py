@@ -45,6 +45,7 @@ def handle_client(client):
             return
 
         # Atribui uma cor ao usuário e o adiciona à lista de clientes
+        # Escolhe a cor do usuário usando o operador módulo (%) para garantir que as cores sejam distribuídas ciclicamente entre os usuários conectados
         color = colors[len(clients) % len(colors)]
         clients[client] = (username, color)
 
@@ -102,7 +103,8 @@ def show_room(client, room):
 
 # Função para lidar com as mensagens enviadas pelo cliente na sala
 def handle_messages(client, room):
-    
+
+    # Se client não existir no dicionário, username receberá "Desconhecido" e color receberá RESET_COLOR
     username, color = clients.get(client, ("Desconhecido", RESET_COLOR))
     while True:
         try:
@@ -118,8 +120,11 @@ def handle_messages(client, room):
             elif msg.lower() == "/sair":
                 rooms[room]["clients"].remove(client)
                 broadcast(f"{color}{username}{RESET_COLOR} saiu da sala.", room, client)
+                
+                # Deleta a sala se ela estiver vazia
                 if not rooms[room]["clients"]:
                     del rooms[room]
+
                 return_to_lobby(client)
                 break
 
@@ -131,6 +136,9 @@ def handle_messages(client, room):
             # Verifica se o cliente digitou uma mensagem privada
             elif msg.startswith("@"):
                 recipient_name, private_msg = msg[1:].split(" ", 1)
+
+                # Procura um cliente (c) cujo nome (name) seja igual a recipient_name 
+                # next() -> Retorna o primeiro resultado encontrado na busca
                 recipient = next((c for c, (name, _) in clients.items() if name == recipient_name), None)
                 if recipient:
                     recipient.send(f"\n🔒 Mensagem privada de {username}: {private_msg}\n".encode())
@@ -139,8 +147,8 @@ def handle_messages(client, room):
                     
             # Envia a mensagem para todos os clientes na sala
             else:
-                logs.append(f"[{room}] {username}: {msg}")
-                broadcast(f"{color}<{username}>{RESET_COLOR} {msg}", room, client)
+                logs.append(f"[{room}] {username}: {msg}") # Salva a mensagem enviada nos logs do sistema
+                broadcast(f"{color}<{username}>{RESET_COLOR} {msg}", room, client) # Envia a mensagem para todos os demais clientes da sala
         except:
             remove_client(client, room)
             break
@@ -159,15 +167,20 @@ def remove_client(client, room=None):
     username, color = clients.get(client, ("Desconhecido", RESET_COLOR))
 
     if room and client in rooms.get(room, {}).get("clients", []):
+
+        # Tira o cliente da sala
         rooms[room]["clients"].remove(client)
         broadcast(f"{color}{username}{RESET_COLOR} saiu da sala.", room, client)
 
+        # Se o último participante da sala sair, ela é deletada
         if not rooms[room]["clients"]:
             del rooms[room]
-
+    
+    # Tira o cliente da lista global de clientes
     if client in clients:
         del clients[client]
-
+    
+    # Fecha a conexão com o cliente
     client.close()
 
 # Função para ouvir comandos do servidor (como /shutdown e /logs)
@@ -175,18 +188,25 @@ def server_command_listener(server):
     global server_running
     while server_running:
         cmd = input().strip().lower()
+
+        # Verifica se o comando "/shutdown" foi digitado no terminal do servidor
         if cmd == "/shutdown":
             print("\n⚠️ Encerrando o servidor...\n")
             for client in list(clients.keys()):
                 try:
+                    # Desconecta todos os clientes
                     client.send("\n⚠️ O servidor foi encerrado.\n".encode())
                     client.close()
                 except:
                     pass
+            # Fecha o servidor
             server_running = False
             server.close()
             os._exit(0)
+        
+        # Verifica se o comando "/logs" foi digitado no terminal do servidor
         elif cmd == "/logs":
+            # Imprime todas as mensagens enviadas no servidor, indicando sala, cliente e conteúdo da mensagem
             print("\n📜 LOGS DO SERVIDOR 📜")
             for log in logs:
                 print(log)
@@ -195,8 +215,14 @@ def server_command_listener(server):
 
 # Função principal do servidor
 def main():
-    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server.bind((IP, port))
+
+    # Usei TCP para garantir que as mensagens sejam entregues corretamente e na ordem certa
+    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # IPv4, TCP
+
+    # Liga o socket a um IP e a uma porta 
+    server.bind((IP, port)) # Configuráveis no topo do arquivo para facilitar depuração
+
+    # Servidor no modo de escuta
     server.listen()
     print("Servidor iniciado 🚀")
 
@@ -206,8 +232,13 @@ def main():
     threading.Thread(target=server_command_listener, args=(server,), daemon=True).start()
 
     while server_running:
+        # Aceita novas conexões de clientes e cria uma thread para cada um
         try:
+            # Quando um cliente se conecta, retorna dois valores: 
+            # client (novo socket exclusivo para o cliente); 
+            # _: o endereço do cliente (não está sendo usado, por isso o _)
             client, _ = server.accept()
+            
             # Inicia uma nova thread para lidar com o cliente
             threading.Thread(target=handle_client, args=(client,)).start()
         except:
